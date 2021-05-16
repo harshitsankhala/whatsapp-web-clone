@@ -1,0 +1,42 @@
+.sidebar {
+  flex: 0.35;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar__header {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.sidebar__headerRight {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 7vw;
+}
+
+.sidebar__headerRight > .MuiSvgIcon-root {
+  margin-right: 2vw;
+  font-size: 24px !important; /* this !imprtant is req to overwrite material ui css */
+}
+
+.sidebar__search {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  width: 100%;
+  height: 39px;
+  border-radius: 20px;
+}
+
+.sidebar__search > .MuiSvgIcon-root {
+  color: gray;
+  padding: 10px;
+}
+
+.sidebar__search > input {
+  border: none;
+  margin-left: 10px;
+  outline: none;
+}
