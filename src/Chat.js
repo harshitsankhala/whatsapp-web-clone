@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Chat.css";
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, IconButton, Input } from "@material-ui/core";
 import { SearchOutlined, AttachFile, MoreVert } from "@material-ui/icons";
 import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon";
 import MicIcon from "@material-ui/icons/Mic";
@@ -8,14 +8,18 @@ import { useParams } from "react-router";
 import db from "./firebase";
 import { useStateValue } from "./StateProvider";
 import firebase from "firebase";
+import EmojiPicker from "./EmojiPicker";
+import ClearIcon from "@material-ui/icons/Clear";
 
 function Chat() {
   const { roomId } = useParams();
   const [seed, setSeed] = useState("");
-  const [input, setInput] = useState("");
+  let [input, setInput] = useState("");
   const [roomName, setRoomName] = useState("");
   const [message, setMessage] = useState([]);
   const [{ user }, dispatch] = useStateValue();
+  let [chosenEmoji, setChosenEmoji] = useState({});
+  const [emojiPicker, setEmojiPicker] = useState([]);
 
   useEffect(() => {
     if (roomId) {
@@ -49,6 +53,27 @@ function Chat() {
 
     setInput("");
   };
+
+  const emojiHandler = () => {
+    return <EmojiPicker parent={handleCallBack} />;
+  };
+  const handleCallBack = (childData) => {
+    // setChosenEmoji(childData);
+    // console.log(chosenEmoji.emoji);
+    if (childData) {
+      setInput((prevalue) => prevalue + childData.emoji);
+      console.log("***************", input);
+    }
+
+    // console.log(typeof chosenEmoji?.emoji);
+    // console.log("Whole object : ", chosenEmoji);
+    // console.log("hey its me", input.concat(chosenEmoji?.emoji));
+  };
+  const btnEmojiHandler = (e) => {
+    e.preventDefault();
+    setEmojiPicker(emojiHandler());
+  };
+
   return (
     <div className="chat">
       <div className="chat__header">
@@ -92,11 +117,37 @@ function Chat() {
         ))}
       </div>
       <div className="chat__footer">
-        <InsertEmoticonIcon />
+        {emojiPicker.length === undefined ? (
+          <button
+            onClick={() => {
+              setEmojiPicker([]);
+              console.log("Hey it's me", emojiPicker);
+              console.log(emojiPicker === null);
+            }}
+            className="chat__footerCrossBtn"
+          >
+            <ClearIcon />
+          </button>
+        ) : (
+          ""
+        )}
+        <button
+          className="chat__footerEmojiBtn"
+          onClick={(e) => {
+            btnEmojiHandler(e);
+          }}
+        >
+          {emojiPicker}
+          {console.log("Hey it's open", emojiPicker.length)}
+          <InsertEmoticonIcon />
+        </button>
         <form>
           <input
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => {
+              setInput(e.target.value);
+              // console.log("its ", input);
+            }}
             type="text"
             placeholder="Type a message"
           />

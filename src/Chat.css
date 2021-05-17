@@ -80,6 +80,18 @@
   border-top: 1px solid lightgray;
 }
 
+.chat__footerCrossBtn {
+  border: none;
+}
+.chat__footerEmojiBtn {
+  position: relative;
+}
+
+/*.emoji-picker-react {
+  /* margin-bottom: 200px;
+  height: 50px; 
+}
+*/
 .chat__footer > form {
   flex: 1;
   display: flex;

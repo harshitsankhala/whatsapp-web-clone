@@ -5,7 +5,8 @@ import Chat from "./Chat";
 import Login from "./Login";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
-
+import DarkMode from "./DarkMode";
+import EmojiPicker from "./EmojiPicker";
 function App() {
   const [{ user }, dispatch] = useStateValue();
 
@@ -14,6 +15,8 @@ function App() {
   }, [user]);
   return (
     <div className="App">
+      {/* <EmojiPicker /> */}
+      {console.log("Hey wind", window)}
       {!user ? (
         <Login />
       ) : (
